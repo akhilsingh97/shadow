@@ -1,0 +1,207 @@
+<div ng-controller="AppController as ctrl" class="container">
+
+          
+
+             <!--  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="/about"><i class="fa fa-shield"></i> About</a></li>
+                  
+                </ul> -->
+
+
+                <div class="col-lg-12 ">
+
+                    <h1 style="margin-left: 31%">Sample Contact Application</h1>
+
+                     
+
+               
+
+                    <form class="form-horizontal" ng-submit="ctrl.submit()" name="userForm" role="form" novalidate>
+
+
+
+
+  <div class="row">
+                                    
+                    <fieldset class="form-group mb-1 col-md-6 pl-0">
+                      
+                        <input type="hidden" ng-model="ctrl.user.id" />
+        <div class="form-group" ng-class="{ 'has-error' : userForm.firstname.$invalid && !userForm.firstname.$pristine }" >
+            <label  class="col-sm-3 control-label">First Name</label>
+            <div class="col-sm-6">
+                <input type="text" name="firstname" class="form-control" ng-model="ctrl.user.firstname" required pattern=".{2,}" />
+                
+                                      <span ng-show="userForm.firstname.$error.required && !userForm.firstname.$pristine" class="help-block">This is a required field</span>
+                                      
+                                      
+                                  
+            </div>
+           
+
+        </div>
+      </fieldset>
+
+
+
+      <fieldset class="form-group mb-1 col-md-6 pl-0">
+                      
+                        
+        <div class="form-group" ng-class="{ 'has-error' : userForm.lastname.$invalid && !userForm.lastname.$pristine }" >
+            <label  class="col-sm-3 control-label">Last Name</label>
+            <div class="col-sm-6">
+                <input type="text" name="lastname" class="form-control" ng-model="ctrl.user.lastname" required pattern=".{2,}" />
+                
+                                      <span ng-show="userForm.lastname.$error.required && !userForm.lastname.$pristine" class="help-block">This is a required field</span>
+                                      
+                                     
+                                  
+            </div>
+           
+
+        </div>
+      </fieldset>
+   
+   
+        
+
+                                    
+      
+   
+
+
+
+
+                                    
+       <fieldset class="form-group mb-1 col-md-6 pl-0">
+        
+        <div class="form-group " ng-class="{ 'has-error' : userForm.designation.$invalid && !userForm.designation.$pristine }">
+            <label for="gender" class="col-sm-3 control-label">Designation</label>
+            <div class="col-sm-6">
+                <select name="designation" class="form-control" ng-model="ctrl.user.designation" required>
+                    
+                    <option value="astManager">Assistant Manager</option>
+                    <option value="manager">Manager</option>
+                    <option value="se">Software Engineer 1</option>
+                </select>
+                
+                                      <span ng-show="userForm.designation.$error.required && !userForm.designation.$pristine" class="help-block">This is a required field</span>
+                                      
+                                     
+                                  
+            </div>
+           
+        </div>
+      </fieldset>
+    
+
+
+
+                                    
+      <fieldset class="form-group mb-1 col-md-6 pl-0">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.age.$invalid && !userForm.age.$pristine }">
+            <label class="col-sm-3 control-label">Age</label>
+            <div class="col-sm-6">
+                <input type="number" class="form-control" name="age" ng-model="ctrl.user.age" pattern=".{2,}" required max='60' min='18' />
+               
+                                      <span ng-show="userForm.age.$error.required && !userForm.age.$pristine" class="help-block">This is a required field</span>
+
+                                      <span ng-show="myForm.age.$error.min">Age should be above 18</span>
+                                       <span ng-show="myForm.age.$error.max">Age should be below 60.</span>
+                                      
+                                      <span ng-show="!userForm.age.$error.required && userForm.age.$invalid && !userForm.age.$pristine" class="help-block">Age is invalid </span>
+                                 
+            </div>
+          
+
+        </div>
+      </fieldset>
+ 
+
+
+
+
+   
+<fieldset class="form-group mb-1 col-md-6 pl-0">
+</fieldset>
+
+</div>
+
+
+<div class="row">
+
+  <div class="col-sm-4"></div>
+<div class="col-sm-2 form-group mb-1">
+
+   <input type="submit"  value="{{!ctrl.user.id ? 'Add' : 'Update'}}" class="btn  btn-info  bg-blue bg-darken-2 btn-block" ng-disabled="userForm.$invalid">
+                                        
+                                    </div>
+
+<div class="col-sm-1"></div>
+                                    <div class="col-sm-2 form-group mb-1">
+
+  <button type="button" ng-click="ctrl.reset()" class="btn  btn-info  bg-blue bg-darken-2  btn-block" ng-disabled="userForm.$pristine">Clear</button>
+                                    </div>
+                                  </div>
+
+       <!-- <fieldset class="form-group mb-1 col-md-6 pl-0">
+           
+                          <div class="form-actions col-sm-3">
+                              <input type="submit"  value="{{!ctrl.user.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="userForm.$invalid">
+                            </div>
+                            <div class="form-actions col-sm-3">
+                              <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="userForm.$pristine">Clear</button>
+                          </div>
+                  </fieldset> -->
+        
+        <!-- <input type="submit" value="Save" class="btn btn-primary col-sm-offset-3" />
+        <input type="reset" value="Reset" ng-click="resetForm()" > -->
+    </form>
+
+                </div>
+
+          
+
+
+            <div class="col-lg-12">
+
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+              <div class="panel-heading"><span class="lead">List of Employees </span></div>
+              <div class="tablecontainer table-responsive">
+                  <table class="table mb-0 table-striped m-b-0 f-14 zero-configuration" id="example"  cellspacing="0" width="100%">
+                      <thead>
+                          <tr>
+                              
+                              <th>Name</th>
+                           
+                              
+                              <th>Designation Name</th>
+                              <th> Age</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="u in ctrl.user_json track by $index" ng-if="u.deleted!=true">
+
+                          	
+                              
+                              <td><span ng-bind="u.firstname"></span><span></span> <span ng-bind="u.lastname"></span></td>
+                     
+                              
+                              <td><span ng-bind="u.designation"></span></td>
+                              <td><span ng-bind="u.age"></span></td>
+                              <td>
+                              <button  ng-click="ctrl.edit(u.id)"  class="btn btn-success custom-width">Edit</button> <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>
+                              </td>
+                             
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <!-- ng-click="ctrl.edit(u.id)" -->
+          </div>
+        </div>
+
+        </div>
