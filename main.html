@@ -1,12 +1,10 @@
-<div ng-controller="AppController as ctrl" class="container">
+<div >
+      <div  class="container">
+
 
           
 
-             <!--  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="/about"><i class="fa fa-shield"></i> About</a></li>
-                  
-                </ul> -->
+            
 
 
                 <div class="col-lg-12 ">
@@ -17,7 +15,7 @@
 
                
 
-                    <form class="form-horizontal" ng-submit="ctrl.submit()" name="userForm" role="form" novalidate>
+                    <form class="form-horizontal"  name="userForm" role="form" novalidate>
 
 
 
@@ -26,11 +24,11 @@
                                     
                     <fieldset class="form-group mb-1 col-md-6 pl-0">
                       
-                        <input type="hidden" ng-model="ctrl.user.id" />
+                        <input type="hidden" ng-model="id" />
         <div class="form-group" ng-class="{ 'has-error' : userForm.firstname.$invalid && !userForm.firstname.$pristine }" >
             <label  class="col-sm-3 control-label">First Name</label>
             <div class="col-sm-6">
-                <input type="text" name="firstname" class="form-control" ng-model="ctrl.user.firstname" required pattern=".{2,}" />
+                <input type="text" name="firstname"  class="form-control" ng-model="firstname" required pattern=".{2,}" />
                 
                                       <span ng-show="userForm.firstname.$error.required && !userForm.firstname.$pristine" class="help-block">This is a required field</span>
                                       
@@ -50,7 +48,7 @@
         <div class="form-group" ng-class="{ 'has-error' : userForm.lastname.$invalid && !userForm.lastname.$pristine }" >
             <label  class="col-sm-3 control-label">Last Name</label>
             <div class="col-sm-6">
-                <input type="text" name="lastname" class="form-control" ng-model="ctrl.user.lastname" required pattern=".{2,}" />
+                <input type="text" name="lastname" class="form-control"  ng-model="lastname" required pattern=".{2,}" />
                 
                                       <span ng-show="userForm.lastname.$error.required && !userForm.lastname.$pristine" class="help-block">This is a required field</span>
                                       
@@ -78,7 +76,7 @@
         <div class="form-group " ng-class="{ 'has-error' : userForm.designation.$invalid && !userForm.designation.$pristine }">
             <label for="gender" class="col-sm-3 control-label">Designation</label>
             <div class="col-sm-6">
-                <select name="designation" class="form-control" ng-model="ctrl.user.designation" required>
+                <select name="designation" class="form-control" ng-model="designation" required>
                     
                     <option value="astManager">Assistant Manager</option>
                     <option value="manager">Manager</option>
@@ -102,7 +100,7 @@
             <div class="form-group" ng-class="{ 'has-error' : userForm.age.$invalid && !userForm.age.$pristine }">
             <label class="col-sm-3 control-label">Age</label>
             <div class="col-sm-6">
-                <input type="number" class="form-control" name="age" ng-model="ctrl.user.age" pattern=".{2,}" required max='60' min='18' />
+                <input type="number" class="form-control" name="age" ng-model="age" pattern=".{2,}" required max='60' min='18' />
                
                                       <span ng-show="userForm.age.$error.required && !userForm.age.$pristine" class="help-block">This is a required field</span>
 
@@ -133,7 +131,7 @@
   <div class="col-sm-4"></div>
 <div class="col-sm-2 form-group mb-1">
 
-   <input type="submit"  value="{{!ctrl.user.id ? 'Add' : 'Update'}}" class="btn  btn-info  bg-blue bg-darken-2 btn-block" ng-disabled="userForm.$invalid">
+   <button type="button" ng-click="add()" class="btn  btn-info  bg-blue bg-darken-2 btn-block" ng-disabled="userForm.$invalid">Add</button>
                                         
                                     </div>
 
@@ -183,9 +181,9 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr ng-repeat="u in ctrl.user_json track by $index" ng-if="u.deleted!=true">
+                          <tr ng-repeat="u in user_json track by $index" ng-if="u.deleted!=true">
 
-                          	
+                            
                               
                               <td><span ng-bind="u.firstname"></span><span></span> <span ng-bind="u.lastname"></span></td>
                      
@@ -193,7 +191,7 @@
                               <td><span ng-bind="u.designation"></span></td>
                               <td><span ng-bind="u.age"></span></td>
                               <td>
-                              <button  ng-click="ctrl.edit(u.id)"  class="btn btn-success custom-width">Edit</button> <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>
+                              <button  ng-click="edit(u.id)"  class="btn btn-success custom-width">Edit</button> <button type="button" ng-click="remove(u.id)" class="btn btn-danger custom-width">Remove</button>
                               </td>
                              
                           </tr>
@@ -205,3 +203,4 @@
         </div>
 
         </div>
+    </div>

@@ -5,90 +5,100 @@
          
          app.config(function($routeProvider) {
     $routeProvider
-    .when("/", {
-        templateUrl : "/index.html",
-        controller:"AppController"
+    .when('/', {
+        templateUrl : '/main.html',
+        controller:'AppController'
     })
-    .when("/edit/:id", {
+   
+    .when('/edit/:id', {
         templateUrl : '/edit.html',
                 controller  : 'EditController'
     })
     .otherwise({
-                redirectTo: "/"
+                redirectTo: '/'
             });
     
 });
+
+          app.controller('mainController', function($scope) {
+            console.log("dsvevfdxdwr")
+        // create a message to display in our view
+        $scope.message = 'Everyone come and see how good I look!';
+    });
           app.controller('AppController', ['$scope','$window','$location', function($scope, $window, $location) {
-              var self = this;
+            
              
               
 
-              self.deleted= false;
+              $scope.deleted= false;
 
-              self.user={id:null,firstname:'',lastname:'',designation:'', age:''};
-              self.id = localStorage.getItem('ids');
+              $scope.user={id:null,firstname:'',lastname:'',designation:'', age:''};
+              $scope.id = localStorage.getItem('ids');
                
-              self.users = [
+              $scope.users = [
                       
               ];
 
-              self.user_temp = localStorage.getItem('users');
-              self.user_json= JSON.parse(self.user_temp)
-              console.log(self.user_json)
-              if(self.user_json==null){
-                self.user_json=[]
+              $scope.user_temp = localStorage.getItem('users');
+              $scope.user_json= JSON.parse($scope.user_temp)
+              console.log($scope.user_json)
+              if($scope.user_json==null){
+                console.log("dfhwn")
+                $scope.user_json=[]
               }
 
-              self.users=self.user_json;
+              $scope.users=$scope.user_json;
 
                
-              self.submit = function() {
-                console.log(self.user.id)
+              $scope.add = function() {
+                console.log($scope.user.id)
+                console.log("csdcvef")
                
                
-                  if(self.user.id === null){
+                  if($scope.user.id === null){
 
-                    if(self.id==null){
-                      self.id=1;
+                    if($scope.id==null){
+                      $scope.id=1;
                     }
-                   
-                    self.user.id = self.id++;
-
+                   else{
+                    $scope.user.id = $scope.id++;
+                  }
                     
-                     self.users=self.user_json;
+                     $scope.users=$scope.user_json;
                       
-                      console.log('Saving New User', self.user);
-                      console.log(self.users)    
-                      // self.userk= JSON.stringify(self.user)
-                      self.users.push(self.user)
+                      console.log('Saving New User', $scope.user);
+                      console.log($scope.users)  
+                      $scope.user={id:$scope.id,firstname:$scope.firstname,lastname:$scope.lastname,designation:$scope.designation, age:$scope.age};  
+                      // $scope.userk= JSON.stringify($scope.user)
+                      $scope.users.push($scope.user)
                       
 
 
-                      localStorage.setItem('ids',JSON.stringify(self.id));
+                      localStorage.setItem('ids',JSON.stringify($scope.id));
 
 
-                      localStorage.setItem('users', JSON.stringify(self.users));
+                      localStorage.setItem('users', JSON.stringify($scope.users));
 
 
                     
                   }else{
-                    console.log(self.user_json.length)
-                      for(var i = 0; i < self.user_json.length; i++){
-                        console.log(self.user_json)
-                          if(self.user_json[i].id === self.user.id) {
-                            console.log(self.user)
-                            self.user_json[i] = self.user;
+                    console.log($scope.user_json.length)
+                      for(var i = 0; i < $scope.user_json.length; i++){
+                        console.log($scope.user_json)
+                          if($scope.user_json[i].id === $scope.user.id) {
+                            console.log($scope.user)
+                            $scope.user_json[i] = $scope.user;
                             break;
                           }
                       }
-                     console.log('User updated with id ', self.user.id);
-                     localStorage.setItem('users', JSON.stringify(self.user_json));
+                     console.log('User updated with id ', $scope.user.id);
+                     localStorage.setItem('users', JSON.stringify($scope.user_json));
 
                   }
 
-                  // self.userrr.push(JSON.parseJSON.stringify(self.users))
+                  // $scope.userrr.push(JSON.parseJSON.stringify($scope.users))
                   
-                  console.log(self.user_json)
+                  console.log($scope.user_json)
 
                   if (confirm("Successfully added !")) {
                      $window.location.reload();
@@ -100,18 +110,18 @@
                  
                  
 
-                  self.reset();
+                  $scope.reset();
               };
                
-              self.edit = function(ids){
+              $scope.edit = function(ids){
 
                   console.log('id to be edited', ids);
                   $location.path('/edit/' + ids)
 
-                  // for(var i = 0; i < self.user_json.length; i++){
-                  //   console.log(self.user_json[i].id)
-                  //     if(self.user_json[i].id === ids) {
-                  //        self.user = angular.copy(self.user_json[i]);
+                  // for(var i = 0; i < $scope.user_json.length; i++){
+                  //   console.log($scope.user_json[i].id)
+                  //     if($scope.user_json[i].id === ids) {
+                  //        $scope.user = angular.copy($scope.user_json[i]);
                   //        break;
                   //     }
                   // }
@@ -119,23 +129,23 @@
 
 
 
-              self.remove = function(ids){
+              $scope.remove = function(ids){
                   console.log('id to be deleted', ids);
-                  for(var i = 0; i < self.users.length; i++){
+                  for(var i = 0; i < $scope.users.length; i++){
 
-                      if(self.users[i].id === ids) {
-                      	self.users[i].deleted= true;
-                         // if(self.user.id === ids){//It is shown in form, reset it.
+                      if($scope.users[i].id === ids) {
+                      	$scope.users[i].deleted= true;
+                         // if($scope.user.id === ids){//It is shown in form, reset it.
                          // 	console.log("reset")
-                         //    self.reset();
+                         //    $scope.reset();
                          // }
                          
                       }
                   }
-                  console.log(self.users)
-                  self.user_json= self.users;
-                  localStorage.setItem('users', JSON.stringify(self.users));
-                  console.log(self.user_json)
+                  console.log($scope.users)
+                  $scope.user_json= $scope.users;
+                  localStorage.setItem('users', JSON.stringify($scope.users));
+                  console.log($scope.user_json)
               }
 
 
@@ -143,8 +153,8 @@
                
             
                
-              self.reset = function(){
-                  self.user={id:null,name:'',address:'',email:''};
+              $scope.reset = function(){
+                  $scope.user={id:null,name:'',address:'',email:''};
                   $scope.userForm.$setPristine(); //reset Form
               }
  
@@ -154,47 +164,69 @@
 
 
 
-         app.controller('EditController', ['$scope','$window', function($scope, $window) {
+         app.controller('EditController', ['$scope','$window', '$location', '$routeParams', function($scope, $window,$location,$routeParams) {
 
-          console.log("d anskdam,")
+       
 
-          var self=this;
+          
 
-          self.user_temp = localStorage.getItem('users');
-              self.users_json= JSON.parse(self.user_temp)
+          $scope.user_t = localStorage.getItem('users');
+              $scope.user_json= JSON.parse($scope.user_t)
+
+              console.log($scope.user_json)
+              $scope.id=$routeParams.id
+              
 
 
-          self.edit = function(ids){
-                  console.log('id to be edited', ids);
-                  for(var i = 0; i < self.users_json.length; i++){
-                    console.log(self.users_json[i].id)
-                      if(self.users_json[i].id === ids) {
-                         self.user = angular.copy(self.users_json[i]);
-                         break;
+          
+                  console.log('id to be edited', $scope.id);
+                  for(var i = 0; i < $scope.user_json.length; i++){
+                    console.log($scope.user_json[i].id)
+                      if($scope.user_json[i].id == $scope.id) {
+                        console.log("aaaa")
+                         // $scope.id = angular.copy($scope.user_json[i].id);
+
+                         // $scope.firstnames= angular.copy($scope.user_json[i].firstname)
+                         
+                         $scope.user_tempo= $scope.user_json[i];
+                         console.log($scope.user_tempo.id)
+                         // $scope.lastnames=angular.copy($scope.user_json[i].lastname)
+                         // $scope.designation=angular.copy($scope.user_json[i].designation)
+                         // $scope.age=angular.copy($scope.user_json[i].age)
+                         // break;
                       }
                   }
-              }
 
-
-
- self.submit = function(){
+                  $scope.update = function(){
 
 
               
-                    console.log(self.user_json.length)
-                      for(var i = 0; i < self.user_json.length; i++){
-                        console.log(self.user_json)
-                          if(self.user_json[i].id === self.user.id) {
-                            console.log(self.user)
-                            self.user_json[i] = self.user;
-                            break;
+                   
+                      for(var i = 0; i < $scope.user_json.length; i++){
+                        console.log($scope.user_json)
+                          if($scope.user_json[i].id === $scope.id) {
+                            console.log($scope.user)
+                            $scope.user_json[i].id= $scope.user_tempo.id;
+                            $scope.user_json[i].firstname= $scope.user_tempo.firstname;
+                            $scope.user_json[i].lastname= $scope.user_tempo.lastname;
+                            $scope.user_json[i].designation= $scope.user_tempo.designation;
+                            $scope.user_json[i].age= $scope.user_tempo.age;
+                          
                           }
                       }
-                     console.log('User updated with id ', self.user.id);
-                     localStorage.setItem('users', JSON.stringify(self.user_json));
+                     // console.log('User updated with id ', $scope.user.id);
+                     localStorage.setItem('users', JSON.stringify($scope.user_json));
+                     $location.path('/')
 
                   
                 }
 
-           }]);
+
+              }
+
+
+
+
+
+           ]);
 
